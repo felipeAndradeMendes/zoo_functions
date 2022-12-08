@@ -11,13 +11,8 @@ const isManager = (id) => {
 // console.log(isManager('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 const getRelatedEmployees = (managerId) => {
-  try {
-    if (isManager(managerId) === false) {
-      throw new Error('O id inserido não é de uma pessoa colaboradora gerente!');
-    }
-  } catch (error) {
-    // console.log(typeof error.message)
-    return error.message;
+  if (isManager(managerId) === false) {
+    throw new Error('O id inserido não é de uma pessoa colaboradora gerente!');
   }
 
   const employeesManaged = employees.filter((employee) => employee.managers.includes(managerId));
