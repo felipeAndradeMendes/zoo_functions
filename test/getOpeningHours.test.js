@@ -26,7 +26,7 @@ describe('Testes da função getOpeningHours', () => {
   });
 
   it('Se hora for menor que 0 ou maior que 12, retorna o erro esperado', () => {
-    expect(() => getOpeningHours('tuesday', '13:20-am')).toThrow('The hour must be between 0 and 12');    
+    expect(() => getOpeningHours('tuesday', '13:20-am')).toThrow('The hour must be between 0 and 12');
   });
 
   it('Se o minuto for menor que 0 ou maior que 59, retorna o erro esperado', () => {
