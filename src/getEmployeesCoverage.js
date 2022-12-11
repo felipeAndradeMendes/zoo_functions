@@ -11,7 +11,6 @@ const getLocation = (info) => {
 };
 
 const getEmployee = (param) => {
-
   if (param.name) {
     return employees.find((employee) => {
       const { firstName, lastName } = employee;
@@ -29,7 +28,6 @@ const getEmployee = (param) => {
     return employeeId;
   }
 };
-
 
 const changeIdForName = (ids) => {
   const idsFound = ids.map((id) => species.filter((specie) => specie.id === id));
@@ -52,14 +50,12 @@ const getFullEmployeeList = () => {
 };
 
 const validatedId = (param) => {
-  const id = param.id;
-  if (param.id) {
-    if(!employeesIds.includes(id)) {
-      throw new Error('Informações inválidas');
-    }
+  const { id } = param;
+  if (param.id && !employeesIds.includes(id)) {
+    throw new Error('Informações inválidas');
   }
   return null;
-}
+};
 
 // if(getEmployee(objParam) === undefined) {
 //   console.log('OBJCOM PARAMETRO', getEmployee(objParam))
@@ -69,21 +65,15 @@ const validatedId = (param) => {
 
 const getEmployeesCoverage = (objParam) => {
   if (objParam !== undefined) validatedId(objParam);
-
   if (objParam) {
-    // try {
-      //   getEmployee(objParam);
-      // } catch (error) {
-        //   return error.message;
-        // }
-        const employeeFound = getEmployee(objParam);
-        const { id, firstName, lastName, responsibleFor } = employeeFound;
-        const employeeFoundFormated = {
-          id,
-          fullName: `${firstName} ${lastName}`,
-          species: changeIdForName(responsibleFor),
-          locations: getLocation(responsibleFor),
-        };
+    const employeeFound = getEmployee(objParam);
+    const { id, firstName, lastName, responsibleFor } = employeeFound;
+    const employeeFoundFormated = {
+      id,
+      fullName: `${firstName} ${lastName}`,
+      species: changeIdForName(responsibleFor),
+      locations: getLocation(responsibleFor),
+    };
     return employeeFoundFormated;
   }
   const fullEmployeeList = getFullEmployeeList();
