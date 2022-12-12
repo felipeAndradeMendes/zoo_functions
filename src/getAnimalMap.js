@@ -70,7 +70,7 @@ const getAnimalsNamesSorted = (animal, animalSex) => {
       .map((residentName) => residentName.name);
     // console.log('RETORNO DENTRO DO IF', animalNames)
   }
-  console.log('NOMES FILTRADOS POR SEXO', animalNames);
+  // console.log('NOMES FILTRADOS POR SEXO', animalNames);
   const animalNamesSorted = animalNames.sort();
   const objNames = { [animal]: animalNamesSorted };
 
@@ -105,19 +105,36 @@ const getListWithNamesSorted = (param1, paramSex) => {
 // console.log(getAllLocations());
 // console.log(getLocation('Ne'));
 
-const getAnimalMap = (options) => {
-  // console.log('PARAMETRO SEX DA FUNÇÃO PRINCIPAL', options.sex)
-  if (options === undefined) return getAllLocations();
-  if (!options.includeNames) return getAllLocations();
-  if (options.sex && options.sorted) return getListWithNamesSorted(null, options.sex);
-  if (options.sorted) return getListWithNamesSorted();
-  if (options.sex) return getListWithNames(null, options.sex);
-  if (options.includeNames) return getListWithNames();
+const analyseParameters = (param) => param === undefined || !param.includeNames;
 
-  // return listWithnames;
+const analyseOtherParameters = (param) => {
+  // console.log('PARAMETRO:', param.sorted);
+  if (param.sex && param.sorted) return getListWithNamesSorted(null, param.sex);
+  if (param.sorted) return getListWithNamesSorted();
+  if (param.sex) return getListWithNames(null, param.sex);
 };
 
-// console.log(getAnimalMap({ includeNames: true, sex: 'female', sorted: true}));
+const getAnimalMap = (options) => {
+  if (analyseParameters(options)) return getAllLocations();
+  // // sem parametros
+  // if (options === undefined) return getAllLocations();
+  // // sem parametro "includeNames"
+  // if (!options.includeNames) return getAllLocations();
+
+  if (analyseOtherParameters(options)) return analyseOtherParameters(options);
+  // // somente com parametros "sex" e "sorted"
+  // if (options.sex && options.sorted) return getListWithNamesSorted(null, options.sex);
+  // // soment com parametros "includeNames" e "sorted"
+  // if (options.sorted) return getListWithNamesSorted();
+  // // somente paramentro "includeNames" e "sex"
+  // if (options.sex) return getListWithNames(null, options.sex);
+  // // somente parametro "includeNames"
+  if (options.includeNames) return getListWithNames();
+};
+
+console.log(getAnimalMap({ includeNames: true, sex: 'female', sorted: true }));
+// console.log(getAnimalMap({ sex: 'female', sorted: true}));
+// console.log(getAnimalMap());
 
 module.exports = getAnimalMap;
 
