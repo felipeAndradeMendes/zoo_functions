@@ -29,35 +29,14 @@ const countAnimals = (animal) => {
     return residents.length;
   }
 
-  const chosenResidents = residents.reduce((acc, cur) => {
-    let sum = 0;
-    if (cur.sex === animal.sex) { sum = 1; }
-    return acc + sum;
-  }, 0);
+  const chosenResidents = residents.reduce((acc, cur) => (((cur.sex) === (animal.sex))
+    ? (acc + 1)
+    : (acc + 0)), 0);
 
   return chosenResidents;
 };
 
-console.log(countAnimals({ species: 'elephants', sex: 'male' }));
+// console.log(countAnimals({ species: 'elephants', sex: 'male' }));
+// console.log(countAnimals({ species: 'bears', sex: 'female' }));
 
 module.exports = countAnimals;
-
-// console.log('Nome da especie', name);
-// console.log('Residentes', residents);
-// console.log('Parametro da especie', species);
-// console.log('Parametro do sexo', sex);
-
-// findAnimal(animal)
-// const animalsFound = species.find((specie) => {
-//   const { name } = specie;
-//   return name === animal.species;
-// });
-
-// if (animal === undefined) {
-//   const totalResidentsArr = species.reduce((acc, cur) => {
-//     const { name, residents } = cur;
-//     acc[name] = residents.length;
-//     return acc;
-//   }, {});
-//   return totalResidentsArr;
-// }
