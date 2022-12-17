@@ -4,6 +4,8 @@ const { employees } = data;
 
 const isManager = (id) => {
   const managers = employees.map((employee) => employee.managers);
+  // 'Set' gera um array sem items repetidos;
+  // 'Flat' passa do array secundáro, para o o que o contem, seus itens;
   const newArr = [...new Set(managers.flat())];
 
   return newArr.includes(id);
@@ -17,11 +19,10 @@ const getRelatedEmployees = (managerId) => {
 
   const employeesManaged = employees.filter((employee) => employee.managers.includes(managerId));
   const employeesName = employeesManaged.map((emp) => `${emp.firstName} ${emp.lastName}`);
-  // console.log('bunda velhas')
+
   return employeesName;
 };
 
-// console.log(getRelatedEmployees('9e7d4524-363c-416a-8759-8aa7e50c0992'));
-// console.log(getRelatedEmployees('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
+console.log(getRelatedEmployees('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 module.exports = { isManager, getRelatedEmployees };
